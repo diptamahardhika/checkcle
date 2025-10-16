@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.7
-FROM node:20-alpine AS build
+FROM node:20-bullseye-slim AS build
 WORKDIR /app
 ENV npm_config_fund=false \
     npm_config_audit=false \
