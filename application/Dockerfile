@@ -5,7 +5,7 @@ ENV npm_config_fund=false \
     npm_config_audit=false \
     npm_config_progress=false
 COPY package.json package-lock.json ./
-RUN --mount=type=cache,target=/root/.npm npm ci --no-audit --fund=false --omit=optional
+RUN --mount=type=cache,target=/root/.npm npm ci --no-audit --fund=false
 COPY . .
 RUN --mount=type=cache,target=/root/.npm npm run build
 
