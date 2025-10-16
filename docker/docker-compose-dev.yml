@@ -8,14 +8,14 @@ services:
     ports:
       - "8090:8090"
     volumes:
-      - /var/pb_data:/mnt/pb_data  # Updated mount target to match CMD in Dockerfile
+      - pb_data:/mnt/pb_data  # Persist PocketBase data across rebuilds
     ulimits:
       nofile:
         soft: 4096
         hard: 8192
 
   frontend:
-    image: ghcr.io/diptamahardhika/checkcle-frontend:latest
+    image: ghcr.io/diptamahardhika/checkcle-frontend:sha-b2ae075
     container_name: checkcle-frontend
     ports:
       - "8990:80"
@@ -34,3 +34,6 @@ services:
     # volumes:
     #   - ../application:/app
     #   - /app/node_modules
+
+volumes:
+  pb_data:
