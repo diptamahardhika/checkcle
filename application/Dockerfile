@@ -1,9 +1,13 @@
+# syntax=docker/dockerfile:1.7
 FROM node:20-alpine AS build
 WORKDIR /app
+ENV npm_config_fund=false \
+    npm_config_audit=false \
+    npm_config_progress=false
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN --mount=type=cache,target=/root/.npm npm ci --no-audit --fund=false --omit=optional
 COPY . .
-RUN npm run build
+RUN --mount=type=cache,target=/root/.npm npm run build
 
 FROM nginx:1.27-alpine
 RUN rm -rf /usr/share/nginx/html/*
